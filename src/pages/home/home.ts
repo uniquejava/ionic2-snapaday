@@ -46,16 +46,33 @@ export class HomePage {
     });
 
     this.platform.resume.subscribe(_ => {
-      if (this.photos.length > 0) {
-        this.photoTaken = this.photos[0].date.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0);
-      }
+      this.setPhotoTakenFlag();
     });
-
-
   }
 
   loadPhotos(): void {
+    this.dataService.getData().then(photos => {
+      let savedPhotos: any = false;
+      if (typeof photos !== "undefined") {
+        savedPhotos = JSON.parse(photos);
+      }
+      if (savedPhotos) {
+        savedPhotos.forEach(savedPhoto => {
+          this.photos.push(new PhotoModel(savedPhoto.image, new Date(savedPhoto.date)));
+        });
+      }
 
+      this.setPhotoTakenFlag();
+
+      this.loaded = true;
+    })
+  }
+
+  setPhotoTakenFlag(): void {
+    if (this.photos.length > 0) {
+      let today = new Date();
+      this.photoTaken = this.photos[0].date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
+    }
   }
 
   takePhoto(): any {
@@ -142,7 +159,7 @@ export class HomePage {
   }
 
   save(): void {
-
+    this.dataService.save(this.photos);
   }
 
 }
