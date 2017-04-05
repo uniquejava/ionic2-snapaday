@@ -36,11 +36,10 @@ export class HomePage {
   }
 
   ionViewDidLoad(): void {
-    // this.photos = [
-    //   new PhotoModel('http://placehold.it/100x100', new Date()),
-    //   new PhotoModel('http://placehold.it/100x100', new Date()),
-    //   new PhotoModel('http://placehold.it/100x100', new Date())
-    // ];
+    this.photos = [
+      new PhotoModel('http://placehold.it/100x100', new Date(2017, 3, 1)),
+      new PhotoModel('http://placehold.it/100x100', new Date(2017, 2, 1))
+    ];
 
     this.platform.ready().then(_ => {
       this.loadPhotos();
@@ -138,6 +137,8 @@ export class HomePage {
   }
 
   removePhoto(photo): void {
+    console.log(photo);
+
     let today = new Date();
     // if the photo to be removed was taken today.
     if (photo.date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)) {
