@@ -6,13 +6,26 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Slideshow</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="danger">
+    <ion-title>Play</ion-title>
+    <ion-buttons start>
+      <button ion-button="" icon-only="" (click)="playPhotos()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end="">
+      <button ion-button="" icon-only="" (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <div class="image-container">
+    <img src="" #imagePlayer id="imagePlayer">
+  </div>
 </ion-content>
