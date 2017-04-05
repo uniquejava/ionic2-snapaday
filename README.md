@@ -56,3 +56,25 @@ Cordova默认会使用UIWebView, 需要在config.xml中加入以下配置:
   <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
 ```
 
+## Plugin usage
+http://ionicframework.com/docs/v2/native/Camera
+
+take photo, see home.ts
+```js
+let options = {
+  quality: 100,
+  destinationType: 1, // return a path to the image on the device
+  sourceType: 1, // use the camera to grab the image
+  encodingType: 0, // return the iamge in jpeg format
+  cameraDirection: 1, // front facing camera
+  saveToPhotoAlbum: true // save a copy to the user photo album as well
+};
+
+this.camera.getPicture(options).then(imagePath => {
+  console.log(imagePath);
+}, err => {
+  let alert = this.simpleAlert.createAlert('Oops!', 'Something went wrong.');
+  alert.present();
+});
+
+```
