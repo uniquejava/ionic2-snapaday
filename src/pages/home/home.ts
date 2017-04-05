@@ -6,6 +6,7 @@ import {PhotoModel} from "../../models/photo-model";
 import {Data} from "../../providers/data";
 import {Camera} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
+import {SlideshowPage} from "../slideshow/slideshow";
 
 declare var cordova;
 
@@ -151,7 +152,15 @@ export class HomePage {
   }
 
   playSlideshow(): void {
-
+    if (this.photos.length > 1) {
+      let modal = this.modalCtrl.create(SlideshowPage, {
+        photos: this.photos
+      });
+      modal.present();
+    } else {
+      let alert = this.simpleAlert.createAlert('Oops!', 'You need at least 2 photos before you can play a slideshow.');
+      alert.present();
+    }
   }
 
   sharePhoto(image): void {
