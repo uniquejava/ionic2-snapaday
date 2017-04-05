@@ -35,11 +35,11 @@ export class HomePage {
   }
 
   ionViewDidLoad(): void {
-    this.photos = [
-      new PhotoModel('http://placehold.it/100x100', new Date()),
-      new PhotoModel('http://placehold.it/100x100', new Date()),
-      new PhotoModel('http://placehold.it/100x100', new Date())
-    ];
+    // this.photos = [
+    //   new PhotoModel('http://placehold.it/100x100', new Date()),
+    //   new PhotoModel('http://placehold.it/100x100', new Date()),
+    //   new PhotoModel('http://placehold.it/100x100', new Date())
+    // ];
 
     this.platform.ready().then(_ => {
       this.loadPhotos();

@@ -17,10 +17,10 @@
     <button ion-item *ngIf="!photoTaken" detail-none (click)="takePhoto()">
       <img src="assets/images/smile.png">
     </button>
-    <ion-item-slidingn *ngFor="let photo of photos">
+    <ion-item-sliding *ngFor="let photo of photos">
       <ion-item>
-        <img src="photo.image">
-        <ion-badge item-right="" color="light">0 days ago</ion-badge>
+        <img [src]="photo.image">
+        <ion-badge item-right="" color="light">{{photo.date | daysAgo}} days ago</ion-badge>
       </ion-item>
 
       <ion-item-options>
@@ -28,6 +28,6 @@
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
-    </ion-item-slidingn>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
