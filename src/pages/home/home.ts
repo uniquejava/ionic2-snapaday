@@ -7,6 +7,7 @@ import {Data} from "../../providers/data";
 import {Camera} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
 import {SlideshowPage} from "../slideshow/slideshow";
+import {SocialSharing} from "@ionic-native/social-sharing";
 
 declare var cordova;
 
@@ -31,7 +32,8 @@ export class HomePage {
               public modalCtrl: ModalController,
               public alertCtrl: AlertController,
               public camera: Camera,
-              public file: File) {
+              public file: File,
+              public socialSharing: SocialSharing) {
 
   }
 
@@ -165,7 +167,22 @@ export class HomePage {
   }
 
   sharePhoto(image): void {
-
+    let alert = this.alertCtrl.create({
+      title: 'Nice one!',
+      message: 'You\'ve taken your photo for today, would you also like to share it?',
+      buttons: [
+        {
+          text: 'No, Thanks'
+        },
+        {
+          text: 'Share',
+          handler: _ => {
+            this.socialSharing.share('I\'m taking a selfie every day with #Snapaday', null, image, null);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   save(): void {
