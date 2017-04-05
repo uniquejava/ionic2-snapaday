@@ -7,6 +7,8 @@ import {Data} from "../../providers/data";
 import {Camera} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
 
+declare var cordova;
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -76,6 +78,34 @@ export class HomePage {
 
     this.camera.getPicture(options).then(imagePath => {
       console.log(imagePath);
+      // grab the file name, remove everything before the last / in the imagePath
+      let currentName = imagePath.replace(/^.*[\\\/]/, '');
+
+      // create a new file name
+      let d = new Date(),
+        n = d.getTime(),
+        newFileName = n + '.jpg';
+
+      if (this.platform.is('ios')) {
+        // move the file to permanent storage
+        this.file.moveFile(cordova.file.tempDirectory, currentName, cordova.file.dataDirectory, newFileName).then((success: any) => {
+          this.photoTaken = true;
+
+          console.log(success.nativeURL);
+
+          this.createPhoto(success.nativeURL);
+          this.sharePhoto(success.nativeURL);
+        }, err => {
+          console.log(err);
+          let alert = this.simpleAlert.createAlert('Oops!', 'Something went wrong:' + err.message);
+          alert.present();
+        });
+      } else {
+        this.photoTaken = true;
+        this.createPhoto(imagePath);
+        this.sharePhoto(imagePath);
+      }
+
     }, err => {
       let alert = this.simpleAlert.createAlert('Oops!', 'Something went wrong:' + err.message);
       alert.present();
@@ -84,7 +114,7 @@ export class HomePage {
   }
 
   createPhoto(photo): void {
-
+    
   }
 
   removePhoto(photo): void {
