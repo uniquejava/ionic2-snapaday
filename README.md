@@ -78,3 +78,32 @@ this.camera.getPicture(options).then(imagePath => {
 });
 
 ```
+
+## Android issue
+运行`ionic build android`的报错:
+
+```bash
+
+ANDROID_HOME=/Users/cyper/Library/Android/sdk
+
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home
+
+Error: Could not find gradle wrapper within Android SDK. Might need to update your Android SDK.
+Looked here: /Users/cyper/Library/Android/sdk/tools/templates/gradle/wrapper
+
+```
+
+解决办法:
+http://stackoverflow.com/questions/42613882/error-could-not-find-gradle-wrapper-within-android-sdk-might-need-to-update-yo
+
+```bash
+cd ~/Library/Android/sdk
+# download latest tools
+x wget https://dl.google.com/android/repository/tools_r25.2.3-macosx.zip
+# overwrite existing tools folder without prompting
+unzip -o tools_r25.2.3-macosx.zip
+# clean up
+rm tools_r25.2.3-macosx.zip
+ionic platform rm android
+ionic platform add android
+```
