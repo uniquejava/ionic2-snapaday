@@ -114,7 +114,9 @@ export class HomePage {
   }
 
   createPhoto(photo): void {
-    
+    let newPhoto = new PhotoModel(photo, new Date());
+    this.photos.unshift(newPhoto);
+    this.save();
   }
 
   removePhoto(photo): void {
